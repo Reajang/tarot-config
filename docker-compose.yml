@@ -2,10 +2,10 @@ version: '3.7'
 
 services:
   postgres:
-    image: leonidgarin/tarot-postgres:v1.0.0
-#    build:
-#      context: ../backend/infra/postgres
-#      dockerfile: Dockerfile
+#    image: leonidgarin/tarot-postgres:v1.0.0
+    build:
+      context: ../tarot-backend-kt/infra/postgres
+      dockerfile: Dockerfile
     environment:
       POSTGRES_PASSWORD: postgres
       TZ: Europe/Moscow
@@ -20,6 +20,20 @@ services:
     restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data:rw
+
+  mongodb:
+#    image: mongo:latest
+    build:
+      context: ../tarot-backend-kt/infra/mongo
+      dockerfile: Dockerfile
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongopw
+      MONGO_INITDB_DATABASE: tarot
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
 
   backend:
     image: leonidgarin/tarot-backend:v1.0.0
@@ -85,3 +99,4 @@ volumes:
   pgdata: { }
   kafka-data: { }
   zk-data: { }
+  mongodb_data: { }
