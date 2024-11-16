@@ -52,7 +52,7 @@ services:
         condition: service_healthy
 
   ui:
-    image: leonidgarin/tarot-ui:v1.0.0
+    image: leonidgarin/tarot-ui:1.0.0
 #    build:
 #      context: ../ui
 #      dockerfile: docker/Dockerfile
